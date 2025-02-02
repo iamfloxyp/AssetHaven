@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom"
 import Header from "./Components/Header";
+import AboutUs from "./Components/AboutUs"
 import Home  from "./Pages/Home"
 import Resources from "./Pages/Resources"
 import Pricing from "./Pages/Pricing"
@@ -15,6 +16,7 @@ function App() {
     <Header/>
     <Routes>
       <Route path="/" element ={<Home/>}></Route>
+      <Route path="/" element = {<AboutUs/>} />
       <Route path="/resources" element ={<Resources/>}></Route>
       <Route path="/services" element ={<Services/>}></Route>
       <Route path="/pricing" element ={<Pricing/>}></Route>
