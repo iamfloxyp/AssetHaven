@@ -56,18 +56,18 @@ const faqs = [
   },
 ];
 
-const FAQ = () => {
-  const [activeIndexes, setActiveIndexes] = useState({}); // ✅ Using an object for independent toggling
+const FAQ = ({pageVariant}) => {
+  const [activeIndexes, setActiveIndexes] = useState({}); // 
 
   const toggleAnswer = (index) => {
     setActiveIndexes((prevIndexes) => ({
       ...prevIndexes,
-      [index]: !prevIndexes[index], // ✅ Toggle only the clicked item
+      [index]: !prevIndexes[index], 
     }));
   };
 
   return (
-    <section className="faq-section">
+    <section className={`faq-section ${pageVariant ==="resources"? "faq-resources" :"faq-home"}`}>
       <h2>Frequently Asked Questions</h2>
       <p className="faq-subtext">Everything you need to know about our services.</p>
 

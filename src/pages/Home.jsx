@@ -18,7 +18,7 @@ const Home = () => {
     <Patners/>
     <Support/>
     <Reviews/>
-    <FAQ/>
+    <FAQ pageVariant="home"/>
     <Footer/>
     </>
   )

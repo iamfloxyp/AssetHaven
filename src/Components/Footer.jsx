@@ -17,10 +17,10 @@ const Footer = () => {
           <h3>Quick Links</h3>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/resources">Resources</Link></li>
             <li><Link to="/services">Services</Link></li>
-            <li><Link to="/blogs">Blogs</Link></li>
-            <li><Link to="/faqs">FAQs</Link></li>
+            <li><Link to="/pricing">Pricing</Link></li>
+            <li><Link to="/scam-tracing">Scam Tracing</Link></li>
           </ul>
         </div>
 
@@ -41,7 +41,7 @@ const Footer = () => {
           <h3>Get in Touch</h3>
           <p>123 Financial District, London, UK</p>
           <p>Email: <a href="mailto:support@assethaven.com">support@assethaven.com</a></p>
-          <Link to="/contact" className="contact-btn">Contact</Link>
+          <Link to="/contact" className="contact-btn">Contact Us</Link>
         </div>
       </div>
 
@@ -49,9 +49,9 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>AssetHaven © {new Date().getFullYear()}. All rights reserved</p>
         <div className="footer-bottom-links">
-          <Link to="/terms">Terms & Conditions</Link>
+          <Link to="/Terms">Terms & Conditions</Link>
           <span>|</span>
-          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/Privacy">Privacy Policy</Link>
         </div>
       </div>
     </footer>
