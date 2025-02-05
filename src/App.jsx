@@ -4,7 +4,6 @@ import Header from "./Components/Header";
 import AboutUs from "./Components/AboutUs"
 import Home  from "./Pages/Home"
 import Resources from "./Pages/Resources"
-import Pricing from "./Pages/Pricing"
 import Services from "./Pages/Services"
 import ScamTracing from "./Pages/ScamTracing"
 import ContactUs from "./pages/ContactUs"
@@ -35,7 +34,6 @@ function App() {
       <Route path="/resources/recommended-tools" element={<RecommendedTools />} />
       <Route path="/resources/updates" element={<Blog />} />
       <Route path="/services" element ={<Services/>}></Route>
-      <Route path="/pricing" element ={<Pricing/>}></Route>
       <Route path="/scam-tracing" element ={<ScamTracing/>}></Route>
       <Route path="/contact" element ={<ContactUs/>}></Route>
       <Route path="/terms" element ={<Terms/>}></Route>

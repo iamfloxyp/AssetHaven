@@ -59,7 +59,7 @@ const CryptoRecoveryGuide = () => {
         </div>
         <div className="cta-box">
             <h3>Need help recovering your lost crypto?</h3>
-            <Link to="/contact" className="cta-button">Contact Us</Link>
+            <Link to="/contact" className="crypto-button">Contact Us</Link>
           </div>
       </div>
 

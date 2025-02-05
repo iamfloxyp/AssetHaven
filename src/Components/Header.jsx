@@ -24,7 +24,6 @@ const Header = () => {
         <Link to="/" onClick={() =>setMenuOpen(false)}>Home</Link>
         <Link to ="/resources">Resources</Link>
         <Link to="/services">Services</Link>
-        <Link to ="/pricing">Pricing</Link>
         <Link to="/scam-tracing">Scam Tracing</Link>
         </div>
         <div className="button-container">

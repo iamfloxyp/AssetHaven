@@ -19,7 +19,6 @@ const Footer = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/resources">Resources</Link></li>
             <li><Link to="/services">Services</Link></li>
-            <li><Link to="/pricing">Pricing</Link></li>
             <li><Link to="/scam-tracing">Scam Tracing</Link></li>
           </ul>
         </div>
@@ -28,11 +27,11 @@ const Footer = () => {
         <div className="footer-services">
           <h3>Our Services</h3>
           <ul>
-            <li><Link to="/services/crypto">Crypto Asset Recovery</Link></li>
-            <li><Link to="/services/fraud">Fraud Investigation</Link></li>
-            <li><Link to="/services/wallet">Wallet Recovery</Link></li>
-            <li><Link to="/services/scam-tracing">Scam Tracing</Link></li>
-            <li><Link to="/services/consultation">Asset Consultation</Link></li>
+            <li><Link to="/services">Crypto Asset Recovery</Link></li>
+            <li><Link to="/services">Fraud Investigation</Link></li>
+            <li><Link to="/services">Wallet Recovery</Link></li>
+            <li><Link to="/services">Scam Tracing</Link></li>
+            <li><Link to="/contact">Asset Consultation</Link></li>
           </ul>
         </div>
 

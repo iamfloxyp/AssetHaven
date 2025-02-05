@@ -1,3 +1,4 @@
+import { Link as ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -12,7 +13,7 @@ const Hero = () => {
                 </p>
             </div>
             <div className="hero-buttons">
-            <Link to ="/reviews" className="hero-button">Reviews</Link>
+            <ScrollLink to ="reviews" smooth= {true} duration={700} className="hero-button">Reviews</ScrollLink>
                 <Link to ="/contact" className="hero-button">Contact An Expert</Link>
             </div>
         </div>
