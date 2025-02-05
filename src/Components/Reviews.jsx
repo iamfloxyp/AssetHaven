@@ -106,7 +106,7 @@ const reviews = [
 
 const Reviews = () => {
   return (
-    <section className="customer-reviews">
+    <section className="customer-reviews" id="reviews">
       <h2>What Our Customers Say</h2>
       <div className="reviews-container">
   <div className="reviews-wrapper">
