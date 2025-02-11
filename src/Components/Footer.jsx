@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import Shield from '../images/Shield.png'
+import shield from '../images/shield.png'
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-brand">
           <div className="footer-brand-container">
-          <img src={Shield} alt="Logo" className="logo" />
+          <img src={shield} alt="Logo" className="logo" />
           <span className="logo-name">AssetHaven</span>
           </div>
           <p>“Your Trusted Partner in Asset Recovery”</p>
