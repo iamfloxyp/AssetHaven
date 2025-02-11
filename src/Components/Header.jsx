@@ -2,7 +2,7 @@ import  { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars,faTimes } from "@fortawesome/free-solid-svg-icons"
-import Shield from "../images/Shield.png"
+import shield from "../images/shield.png"
 
 
 const Header = () => {
@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo-container">
-        <img src={Shield} alt="Logo" className="logo" />
+        <img src={shield} alt="Logo" className="logo" />
         <span className="logo-name">AssetHaven</span>
       </div>
 
