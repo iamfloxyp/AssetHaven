@@ -16,6 +16,7 @@ import BlockchainTracing from "./pages/resources/BlockchainTracing";
 import LegalCompliance from "./pages/resources/LegalCompliance";
 import RecommendedTools from "./pages/resources/RecommendedTools";
 import Blog from "./pages/resources/Blog"
+import TidioChat from "./Components/TidioChat";
 import './index.css'
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       <Route path="/terms" element ={<Terms/>}></Route>
       <Route path="/privacy" element ={<Privacy/>}></Route>
     </Routes>
+    <TidioChat/>
    </Router>
   );
 }
