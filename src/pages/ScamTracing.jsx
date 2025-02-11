@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldAlt, faSearch, faBuilding } from "@fortawesome/free-solid-svg-icons";
 import Header from "../Components/Header";
@@ -13,6 +14,50 @@ const ScamTracing = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    country: "",
+    lostAmount: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // Handle Input Change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle Form Submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    try {
+      // Store in MongoDB & Send Email via Nodemailer
+      await axios.post("http://localhost:5000/api/scam-tracing", formData);
+
+      setMessage("Form submitted successfully!");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        country: "",
+        lostAmount: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setMessage("There was an error submitting the form. Please try again.");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <>
       <Header />
@@ -22,9 +67,7 @@ const ScamTracing = () => {
         <div className="scam-tracing-container">
           <div className="scam-tracing-text">
             <h1>Track Down Your Scammed Crypto</h1>
-            <p>
-              Our experts will track your stolen crypto and attempt to link the scammer to a real-world entity.
-            </p>
+            <p>Our experts will track your stolen crypto and attempt to link the scammer to a real-world entity.</p>
             <button onClick={scrollToForm} className="scam-tracing-btn">
               Begin Your Free Consultation
             </button>
@@ -66,23 +109,17 @@ const ScamTracing = () => {
           <div className="scam-benefit-box">
             <FontAwesomeIcon icon={faShieldAlt} className="scam-icon" />
             <h3>Higher Solve Rate</h3>
-            <p>
-              Track cryptocurrency scams, disrupt criminal operations, and help law enforcement recover your funds.
-            </p>
+            <p>Track cryptocurrency scams, disrupt criminal operations, and help law enforcement recover your funds.</p>
           </div>
           <div className="scam-benefit-box">
             <FontAwesomeIcon icon={faSearch} className="scam-icon" />
             <h3>Accelerate Your Case</h3>
-            <p>
-              Utilize blockchain analysis and event reporting for a faster, more efficient scam investigation process.
-            </p>
+            <p>Utilize blockchain analysis and event reporting for a faster, more efficient scam investigation process.</p>
           </div>
           <div className="scam-benefit-box">
             <FontAwesomeIcon icon={faBuilding} className="scam-icon" />
             <h3>Build Your Case</h3>
-            <p>
-              Provide blockchain-based forensic evidence to strengthen your case for legal and civil actions.
-            </p>
+            <p>Provide blockchain-based forensic evidence to strengthen your case for legal and civil actions.</p>
           </div>
         </div>
       </section>
@@ -99,32 +136,35 @@ const ScamTracing = () => {
           </div>
           <div className="scam-tracing-form-box">
             <h3>Request Investigation Assistance</h3>
-            <form action="mailto:support@assethaven.com" method="POST">
+            {message && <p className="form-message">{message}</p>}
+            <form onSubmit={handleSubmit}>
               <div className="scam-form-group">
                 <label>First Name</label>
-                <input type="text" name="firstName" required />
+                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
                 <label>Last Name</label>
-                <input type="text" name="lastName" required />
+                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
                 <label>Email</label>
-                <input type="email" name="email" required />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
                 <label>Phone Number</label>
-                <input type="text" name="phone" required />
+                <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
                 <label>Country</label>
-                <input type="text" name="country" required />
+                <input type="text" name="country" value={formData.country} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
                 <label>Estimated Lost Amount (USD)</label>
-                <input type="number" name="lostAmount" required />
+                <input type="number" name="lostAmount" value={formData.lostAmount} onChange={handleChange} required />
               </div>
-              <button type="submit" className="scam-tracing-submit-btn">Send Message</button>
+              <button type="submit" className="scam-tracing-submit-btn" disabled={loading}>
+                {loading ? "Submitting..." : "Send Message"}
+              </button>
             </form>
           </div>
         </div>
