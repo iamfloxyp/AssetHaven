@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { useState, useRef } from "react";
 import axios from "axios";
+=======
+import { useRef } from "react";
+>>>>>>> 14cd781df88d5596a220250e2d4dfc547036250e
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldAlt, faSearch, faBuilding } from "@fortawesome/free-solid-svg-icons";
 import Header from "../Components/Header";
@@ -14,6 +18,7 @@ const ScamTracing = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+<<<<<<< HEAD
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -58,6 +63,8 @@ const ScamTracing = () => {
     setLoading(false);
   };
 
+=======
+>>>>>>> 14cd781df88d5596a220250e2d4dfc547036250e
   return (
     <>
       <Header />
@@ -67,7 +74,13 @@ const ScamTracing = () => {
         <div className="scam-tracing-container">
           <div className="scam-tracing-text">
             <h1>Track Down Your Scammed Crypto</h1>
+<<<<<<< HEAD
             <p>Our experts will track your stolen crypto and attempt to link the scammer to a real-world entity.</p>
+=======
+            <p>
+              Our experts will track your stolen crypto and attempt to link the scammer to a real-world entity.
+            </p>
+>>>>>>> 14cd781df88d5596a220250e2d4dfc547036250e
             <button onClick={scrollToForm} className="scam-tracing-btn">
               Begin Your Free Consultation
             </button>
@@ -109,17 +122,35 @@ const ScamTracing = () => {
           <div className="scam-benefit-box">
             <FontAwesomeIcon icon={faShieldAlt} className="scam-icon" />
             <h3>Higher Solve Rate</h3>
+<<<<<<< HEAD
             <p>Track cryptocurrency scams, disrupt criminal operations, and help law enforcement recover your funds.</p>
+=======
+            <p>
+              Track cryptocurrency scams, disrupt criminal operations, and help law enforcement recover your funds.
+            </p>
+>>>>>>> 14cd781df88d5596a220250e2d4dfc547036250e
           </div>
           <div className="scam-benefit-box">
             <FontAwesomeIcon icon={faSearch} className="scam-icon" />
             <h3>Accelerate Your Case</h3>
+<<<<<<< HEAD
             <p>Utilize blockchain analysis and event reporting for a faster, more efficient scam investigation process.</p>
+=======
+            <p>
+              Utilize blockchain analysis and event reporting for a faster, more efficient scam investigation process.
+            </p>
+>>>>>>> 14cd781df88d5596a220250e2d4dfc547036250e
           </div>
           <div className="scam-benefit-box">
             <FontAwesomeIcon icon={faBuilding} className="scam-icon" />
             <h3>Build Your Case</h3>
+<<<<<<< HEAD
             <p>Provide blockchain-based forensic evidence to strengthen your case for legal and civil actions.</p>
+=======
+            <p>
+              Provide blockchain-based forensic evidence to strengthen your case for legal and civil actions.
+            </p>
+>>>>>>> 14cd781df88d5596a220250e2d4dfc547036250e
           </div>
         </div>
       </section>
@@ -136,6 +167,7 @@ const ScamTracing = () => {
           </div>
           <div className="scam-tracing-form-box">
             <h3>Request Investigation Assistance</h3>
+<<<<<<< HEAD
             {message && <p className="form-message">{message}</p>}
             <form onSubmit={handleSubmit}>
               <div className="scam-form-group">
@@ -165,6 +197,34 @@ const ScamTracing = () => {
               <button type="submit" className="scam-tracing-submit-btn" disabled={loading}>
                 {loading ? "Submitting..." : "Send Message"}
               </button>
+=======
+            <form action="mailto:support@assethaven.com" method="POST">
+              <div className="scam-form-group">
+                <label>First Name</label>
+                <input type="text" name="firstName" required />
+              </div>
+              <div className="scam-form-group">
+                <label>Last Name</label>
+                <input type="text" name="lastName" required />
+              </div>
+              <div className="scam-form-group">
+                <label>Email</label>
+                <input type="email" name="email" required />
+              </div>
+              <div className="scam-form-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone" required />
+              </div>
+              <div className="scam-form-group">
+                <label>Country</label>
+                <input type="text" name="country" required />
+              </div>
+              <div className="scam-form-group">
+                <label>Estimated Lost Amount (USD)</label>
+                <input type="number" name="lostAmount" required />
+              </div>
+              <button type="submit" className="scam-tracing-submit-btn">Send Message</button>
+>>>>>>> 14cd781df88d5596a220250e2d4dfc547036250e
             </form>
           </div>
         </div>
