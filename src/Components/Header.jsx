@@ -1,8 +1,8 @@
 import  { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars,faTimes } from "@fortawesome/free-solid-svg-icons";
-import Shield from '../images/Shield.png'
+import { faBars,faTimes } from "@fortawesome/free-solid-svg-icons"
+import Shield from "../images/Shield.png"
 
 
 const Header = () => {
