@@ -8,7 +8,7 @@ const Hero = () => {
             <div className="hero-header">
                 <h1>Reclaim What's Yours With <span>Confidence And Security</span></h1>
                 <p>Losing assets can be overwhelming, but recovery doesn't have to be.<span><br />
-                At AssetHaven, we provide expert-driven solutions to help you reclaim, <br />secure, and protect what's rightfully yours.Let's turn your setbacks into sucess.
+                At AssetHaven, we provide expert-driven solutions to help you reclaim, <br />secure, and protect what's rightfully yours.Let's turn your setbacks into success.
                 </span>
                 </p>
             </div>

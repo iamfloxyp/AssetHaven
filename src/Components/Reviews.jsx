@@ -23,8 +23,8 @@ const reviews = [
     image: customer1,
   },
   {
-    name: "Korede Bright",
-    location:"Lagos, Nigeria",
+    name: "Samaon Bright",
+    location:" Bradford, United Kingdom ",
     date: "may 14, 2023",
     rating: 4,
     review: "Their top priority is keeping your information secure...",
