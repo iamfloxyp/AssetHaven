@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldAlt, faSearch, faBuilding } from "@fortawesome/free-solid-svg-icons";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import Laptop from "../images/Laptop.jpg";
-import Police from "../images/Police.jpg";
+import WomanLaptop from "../images/WomanLaptop.avif";
+import Uspolice from "../images/Uspolice.jpg";
 
 const ScamTracing = () => {
   const formRef = useRef(null);
@@ -77,7 +77,7 @@ const ScamTracing = () => {
             </ul>
           </div>
           <div className="scam-tracing-image">
-            <img src={Laptop} alt="Crypto Scam Tracing" />
+            <img src={WomanLaptop} alt="Crypto Scam Tracing" />
           </div>
         </div>
       </section>
@@ -86,7 +86,7 @@ const ScamTracing = () => {
       <section className="scam-tracing-mission">
         <div className="scam-tracing-container">
           <div className="scam-tracing-mission-image">
-            <img src={Police} alt="Law Enforcement" />
+            <img src={Uspolice} alt="Law Enforcement" />
           </div>
           <div className="scam-tracing-mission-text">
             <h2>Combatting Sophisticated Scammers</h2>
