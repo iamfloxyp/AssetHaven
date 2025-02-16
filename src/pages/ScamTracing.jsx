@@ -162,6 +162,16 @@ const ScamTracing = () => {
                 <label>Estimated Lost Amount (USD)</label>
                 <input type="number" name="lostAmount" value={formData.lostAmount} onChange={handleChange} required />
               </div>
+              <div className="scam-form-group">
+              <label>Additional Message (Optional)</label>
+               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows="4"
+                placeholder="Provide any extra details about the scam incident..."
+               />
+            </div>
               <button type="submit" className="scam-tracing-submit-btn" disabled={loading}>
                 {loading ? "Submitting..." : "Send Message"}
               </button>

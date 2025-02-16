@@ -1364,6 +1364,7 @@ top: 6rem;
 }
 
 .faq-answer.show {
+  max-height: 500px;
   display: block;
   opacity: 1;
   transform: translateY(0);
@@ -1384,6 +1385,9 @@ top: 6rem;
 
 .faq-item.active .faq-answer {
   display: block;
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .faq-contact a {
@@ -3518,6 +3522,25 @@ top: 6rem;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #ffffff;
+
+  resize: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+textarea:focus {
+  border-color: #ffae00;
+  outline: none;
+}
+
 
 .scam-tracing-submit-btn {
   width: 100%;

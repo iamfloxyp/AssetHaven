@@ -168,6 +168,16 @@ const ContactUs = () => {
                   <label>Estimated Wallet Value (USD)</label>
                   <input type="number" name="walletValue" value={formData.walletValue} onChange={handleChange} required />
                 </div>
+                <div className="form-group">
+               <label>Additional Message (Optional)</label>
+                 <textarea
+                   name="message"
+                   value={formData.message}
+                   onChange={handleChange}
+                    rows="4"
+                   placeholder="Enter additional details about your request..."
+                   />
+                   </div>
 
                 <div className="form-group privacy-checkbox">
                   <input type="checkbox" name="privacyPolicy" checked={formData.privacyPolicy} onChange={handleChange} required />
