@@ -39,7 +39,7 @@ const ScamTracing = () => {
 
     try {
       // Store in MongoDB & Send Email via Resend API
-      await axios.post("http://localhost:5000/api/scam-tracing", formData);
+      await axios.post("https://assethaven.onrender.com/api/scam-tracing", formData);
 
       setMessage("✅ Form submitted successfully!");
       setFormData({

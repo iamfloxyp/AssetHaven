@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 
 const Contact = require("./models/contact");
 const ScamTracing = require("./models/scamTracing");
-const sendEmail = require("./sendEmail"); // Import sendEmail function
+const sendEmail = require("./sendEmail"); 
 
 dotenv.config();
 

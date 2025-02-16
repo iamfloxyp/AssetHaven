@@ -61,7 +61,7 @@ const ContactUs = () => {
     setMessage("");
 
     try {
-      await axios.post("http://localhost:5000/api/contact", formData);
+      await axios.post("https://assethaven.onrender.com/api/contact", formData);
       setMessage("✅ Form submitted successfully!");
       setFormData({
         firstName: "", lastName: "", country: "", email: "", phone: "",
