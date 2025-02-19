@@ -7,6 +7,8 @@ const scamTracingSchema = new mongoose.Schema({
   phone: String,
   country: String,
   lostAmount: Number,
+  message:{type:String, required:true} ,
+
   date: { type: Date, default: Date.now },
 });
 

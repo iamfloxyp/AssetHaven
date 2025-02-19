@@ -2,10 +2,36 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldAlt, faSearch, faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import WomanLaptop from "../images/WomanLaptop.avif";
 import Uspolice from "../images/Uspolice.jpg";
+
+const countryPhoneCodes = {
+  "United States": "+1",
+  "United Kingdom": "+44",
+  "Canada": "+1",
+  "Australia": "+61",
+  "Germany": "+49",
+  "France": "+33",
+  "India": "+91",
+  "Nigeria": "+234",
+  "South Africa": "+27",
+  "China": "+86",
+  "Japan": "+81",
+  "Brazil": "+55",
+  "Mexico": "+52",
+  "Russia": "+7",
+  "United Arab Emirates": "+971",
+  "Italy": "+39",
+  "Netherlands": "+31",
+  "Switzerland": "+41",
+  "Sweden": "+46",
+  "Singapore": "+65",
+  "Other": "",
+};
 
 const ScamTracing = () => {
   const formRef = useRef(null);
@@ -18,41 +44,61 @@ const ScamTracing = () => {
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
     country: "",
+    phone: "",
     lostAmount: "",
+    message: "",
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [submittedEmails, setSubmittedEmails] = useState(new Set());
 
-  // Handle Input Change
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "country") {
+      setFormData({
+        ...formData,
+        country: value,
+        phone: `${countryPhoneCodes[value] || ""} `,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
-  // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
+
+    if (submittedEmails.has(formData.email)) {
+      toast.error("❌ This email has already submitted a request!", { autoClose: 30000 });
+      setLoading(false);
+      return;
+    }
 
     try {
-      // Store in MongoDB & Send Email via Resend API
       await axios.post("https://assethaven.onrender.com/api/scam-tracing", formData);
+      toast.success("✅ Form submitted successfully!", { autoClose: 30000 });
 
-      setMessage("✅ Form submitted successfully!");
+      setSubmittedEmails((prev) => new Set(prev).add(formData.email));
+
       setFormData({
         firstName: "",
         lastName: "",
         email: "",
-        phone: "",
         country: "",
+        phone: "",
         lostAmount: "",
+        message: "",
       });
+
     } catch (error) {
       console.error("❌ Error submitting form:", error);
-      setMessage("❌ There was an error submitting the form. Please try again.");
+      toast.error("❌ There was an error submitting the form. Please try again.");
     }
 
     setLoading(false);
@@ -60,9 +106,9 @@ const ScamTracing = () => {
 
   return (
     <>
+      <ToastContainer position="top-right" autoClose={30000} />
       <Header />
 
-      {/* Hero Section */}
       <section className="scam-tracing-hero">
         <div className="scam-tracing-container">
           <div className="scam-tracing-text">
@@ -82,7 +128,7 @@ const ScamTracing = () => {
         </div>
       </section>
 
-      {/* Mission Section */}
+     
       <section className="scam-tracing-mission">
         <div className="scam-tracing-container">
           <div className="scam-tracing-mission-image">
@@ -103,28 +149,6 @@ const ScamTracing = () => {
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="scam-tracing-benefits-section">
-        <div className="scam-tracing-container">
-          <div className="scam-benefit-box">
-            <FontAwesomeIcon icon={faShieldAlt} className="scam-icon" />
-            <h3>Higher Solve Rate</h3>
-            <p>Track cryptocurrency scams, disrupt criminal operations, and help law enforcement recover your funds.</p>
-          </div>
-          <div className="scam-benefit-box">
-            <FontAwesomeIcon icon={faSearch} className="scam-icon" />
-            <h3>Accelerate Your Case</h3>
-            <p>Utilize blockchain analysis and event reporting for a faster, more efficient scam investigation process.</p>
-          </div>
-          <div className="scam-benefit-box">
-            <FontAwesomeIcon icon={faBuilding} className="scam-icon" />
-            <h3>Build Your Case</h3>
-            <p>Provide blockchain-based forensic evidence to strengthen your case for legal and civil actions.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form */}
       <section className="scam-tracing-form" ref={formRef}>
         <div className="scam-tracing-container">
           <div className="scam-tracing-form-text">
@@ -136,7 +160,6 @@ const ScamTracing = () => {
           </div>
           <div className="scam-tracing-form-box">
             <h3>Request Investigation Assistance</h3>
-            {message && <p className="form-message">{message}</p>}
             <form onSubmit={handleSubmit}>
               <div className="scam-form-group">
                 <label>First Name</label>
@@ -151,27 +174,26 @@ const ScamTracing = () => {
                 <input type="email" name="email" value={formData.email} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
+                <label>Country</label>
+                <select name="country" value={formData.country} onChange={handleChange} className="full-width-input" required>
+                  <option value="">Select Country</option>
+                  {Object.keys(countryPhoneCodes).map((country, index) => (
+                    <option key={index} value={country}>{country}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="scam-form-group phone-input-group">
                 <label>Phone Number</label>
                 <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
-              </div>
-              <div className="scam-form-group">
-                <label>Country</label>
-                <input type="text" name="country" value={formData.country} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
                 <label>Estimated Lost Amount (USD)</label>
                 <input type="number" name="lostAmount" value={formData.lostAmount} onChange={handleChange} required />
               </div>
               <div className="scam-form-group">
-              <label>Additional Message (Optional)</label>
-               <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows="4"
-                placeholder="Provide any extra details about the scam incident..."
-               />
-            </div>
+                <label>Additional Message (Optional)</label>
+                <textarea name="message" value={formData.message} onChange={handleChange} rows="4" required />
+              </div>
               <button type="submit" className="scam-tracing-submit-btn" disabled={loading}>
                 {loading ? "Submitting..." : "Send Message"}
               </button>

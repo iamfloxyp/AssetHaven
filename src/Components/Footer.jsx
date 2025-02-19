@@ -39,7 +39,7 @@ const Footer = () => {
         <div className="footer-contact">
           <h3>Get in Touch</h3>
           <p>40 Rayburn Way , Cheetham Hill,Manchester, UK</p>
-          <p>Email: <a href="mailto:support@assethaven.com">support@assethaven.com</a></p>
+          <p>Email: <a href="mailto:support@assethaven.com">info@assethaven-sec.com</a></p>
           <Link to="/contact" className="contact-btn">Contact Us</Link>
         </div>
       </div>

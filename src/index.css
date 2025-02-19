@@ -3560,6 +3560,12 @@ textarea:focus {
   background: #8ED1B2;
 }
 
+.full-width-input{
+  width: 100%;
+  padding:  15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 @media (min-width: 300px) and (max-width: 767px) {
   .scam-tracing-container {
     position: relative;
@@ -3840,6 +3846,7 @@ textarea:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
+
 
 
 .wallet-row {

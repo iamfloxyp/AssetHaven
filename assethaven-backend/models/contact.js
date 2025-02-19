@@ -9,7 +9,7 @@ const contactSchema = new mongoose.Schema({
   recoveryType: String,
   walletType: String,
   walletValue: Number,
-  message: String,
+  message:{type:String, required:true} ,
   date: { type: Date, default: Date.now },
 });
 

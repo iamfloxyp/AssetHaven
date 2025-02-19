@@ -1,24 +1,24 @@
-const { Resend } = require("resend");
-require("dotenv").config();
-
+const{Resend} = require("resend")
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (formData, subject) => {
   try {
+    console.log("📩 Email Data Being Sent:", formData.message); g
+
     const response = await resend.emails.send({
-      from: "onboarding@resend.dev", // Change to your domain email once verified
-      to: "maneyflorence@gmail.com", // Replace with your email
-      subject: subject,
+      from: "onboarding@resend.dev", 
+      to: "info@assethaven-sec.com", 
       text: `
-        🔹 New Form Submission:
-        
-        Name: ${formData.firstName} ${formData.lastName}
-        Email: ${formData.email}
-        Phone: ${formData.phone}
-        Country: ${formData.country}
-        Recovery Type: ${formData.recoveryType || "N/A"}
-        Wallet Type: ${formData.walletType || "N/A"}
-        Wallet Value: ${formData.walletValue || "N/A"}
+      📌 New Form Submission:
+
+      Name: ${formData.firstName} ${formData.lastName}
+      Email: ${formData.email}
+      Phone: ${formData.phone}
+      Country: ${formData.country}
+      Recovery Type: ${formData.recoveryType || "N/A"}
+      Wallet Type: ${formData.walletType || "N/A"}
+      Wallet Value: ${formData.walletValue || "N/A"}
+      Message: ${formData.message ? formData.message.replace(/\n/g, "br") : "No message provided"}  ✅✅✅
       `,
     });
 
