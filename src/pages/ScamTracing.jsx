@@ -33,6 +33,30 @@ const countryPhoneCodes = {
   "Other": "",
 };
 
+const countryPhoneLengths = {
+  "United States": 10,
+  "United Kingdom": 10,
+  "Canada": 10,
+  "Australia": 9,
+  "Germany": 11,
+  "France": 9,
+  "India": 10,
+  "Nigeria": 11, // ✅ Nigeria allows 11 digits
+  "South Africa": 9,
+  "China": 11,
+  "Japan": 10,
+  "Brazil": 11,
+  "Mexico": 10,
+  "Russia": 10,
+  "United Arab Emirates": 9,
+  "Italy": 10,
+  "Netherlands": 9,
+  "Switzerland": 10,
+  "Sweden": 9,
+  "Singapore": 8,
+  "Other": 10,
+};
+
 const ScamTracing = () => {
   const formRef = useRef(null);
 
@@ -57,16 +81,29 @@ const ScamTracing = () => {
     const { name, value } = e.target;
 
     if (name === "country") {
+      const phoneCode = countryPhoneCodes[value] || "";
       setFormData({
         ...formData,
         country: value,
-        phone: `${countryPhoneCodes[value] || ""} `,
+        phone: phoneCode, // Auto-set country code on country selection
       });
+    } else if (name === "phone") {
+      const countryLength = countryPhoneLengths[formData.country] || 10; // Default length
+      const cleanedValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+
+      if (cleanedValue.length > countryLength) {
+        return; // ✅ Prevent input beyond max length
+      }
+
+      setFormData((prevData) => ({
+        ...prevData,
+        phone: cleanedValue,
+      }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData((prevData) => ({
+        ...prevData,
         [name]: value,
-      });
+      }));
     }
   };
 
@@ -82,7 +119,7 @@ const ScamTracing = () => {
 
     try {
       await axios.post("https://assethaven.onrender.com/api/scam-tracing", formData);
-      toast.success("✅ Form submitted successfully!", { autoClose: 30000 });
+      toast.success("✅ Scam tracing request submitted successfully!", { autoClose: 30000 });
 
       setSubmittedEmails((prev) => new Set(prev).add(formData.email));
 
@@ -97,7 +134,7 @@ const ScamTracing = () => {
       });
 
     } catch (error) {
-      console.error("❌ Error submitting form:", error);
+      console.error("❌ Error submitting scam tracing request:", error);
       toast.error("❌ There was an error submitting the form. Please try again.");
     }
 
@@ -128,35 +165,11 @@ const ScamTracing = () => {
         </div>
       </section>
 
-     
-      <section className="scam-tracing-mission">
-        <div className="scam-tracing-container">
-          <div className="scam-tracing-mission-image">
-            <img src={Uspolice} alt="Law Enforcement" />
-          </div>
-          <div className="scam-tracing-mission-text">
-            <h2>Combatting Sophisticated Scammers</h2>
-            <p>
-              As crypto scams become more common, bad actors use advanced techniques to hide from law enforcement.
-              Our specialists utilize blockchain forensics to trace stolen assets and provide law enforcement with
-              actionable intelligence.
-            </p>
-            <p>
-              We partner with regulatory agencies and use cutting-edge tools to expose fraudulent activities and
-              assist victims in recovering their funds.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section className="scam-tracing-form" ref={formRef}>
         <div className="scam-tracing-container">
           <div className="scam-tracing-form-text">
             <h2>Work with Trusted Crypto Investigators</h2>
-            <p>
-              Our team works around the clock to assist scam victims in recovering their stolen funds.
-              Start your case today by filling out the form below.
-            </p>
+            <p>Our team works around the clock to assist scam victims in recovering their stolen funds.</p>
           </div>
           <div className="scam-tracing-form-box">
             <h3>Request Investigation Assistance</h3>
@@ -182,7 +195,7 @@ const ScamTracing = () => {
                   ))}
                 </select>
               </div>
-              <div className="scam-form-group phone-input-group">
+              <div className="scam-form-group">
                 <label>Phone Number</label>
                 <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
               </div>

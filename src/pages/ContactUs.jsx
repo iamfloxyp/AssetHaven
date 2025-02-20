@@ -32,6 +32,30 @@ const countryPhoneCodes = {
   "Other": "",
 };
 
+const countryPhoneLengths = {
+  "United States": 10,
+  "United Kingdom": 10,
+  "Canada": 10,
+  "Australia": 9,
+  "Germany": 11,
+  "France": 9,
+  "India": 10,
+  "Nigeria": 11, // ✅ Nigeria allows 11 digits
+  "South Africa": 9,
+  "China": 11,
+  "Japan": 10,
+  "Brazil": 11,
+  "Mexico": 10,
+  "Russia": 10,
+  "United Arab Emirates": 9,
+  "Italy": 10,
+  "Netherlands": 9,
+  "Switzerland": 10,
+  "Sweden": 9,
+  "Singapore": 8,
+  "Other": 10,
+};
+
 const recoveryTypes = [
   "Crypto Asset Recovery",
   "Fraud Investigation",
@@ -70,16 +94,29 @@ const ContactUs = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
     if (name === "country") {
       const phoneCode = countryPhoneCodes[value] || "";
+      setFormData({
+        ...formData,
+        country: value,
+        phone: phoneCode, // Auto-set country code on country selection
+      });
+    } else if (name === "phone") {
+      const countryLength = countryPhoneLengths[formData.country] || 10; // Default length
+      const cleanedValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+
+      if (cleanedValue.length > countryLength) {
+        return; // ✅ Prevent input beyond max length
+      }
+
       setFormData((prevData) => ({
         ...prevData,
-        phone: phoneCode,
+        phone: cleanedValue, 
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
       }));
     }
   };
@@ -180,32 +217,6 @@ const ContactUs = () => {
                 <div className="form-group">
                   <label>Phone Number</label>
                   <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
-                </div>
-                <div className="form-group">
-                  <label>Email</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-                </div>
-                <div className="form-group">
-                  <label>Recovery Type</label>
-                  <select name="recoveryType" value={formData.recoveryType} onChange={handleChange} required>
-                    <option value="">Select Recovery Type</option>
-                    {recoveryTypes.map((type, index) => (
-                      <option key={index} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Wallet Type</label>
-                  <select name="walletType" value={formData.walletType} onChange={handleChange} required>
-                    <option value="">Select Wallet Type</option>
-                    {walletTypes.map((wallet, index) => (
-                      <option key={index} value={wallet}>{wallet}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Wallet Value (USD)</label>
-                  <input type="number" name="walletValue" value={formData.walletValue} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
                   <label>Additional Message (Optional)</label>
