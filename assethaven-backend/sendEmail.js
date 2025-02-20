@@ -7,7 +7,7 @@ const sendEmail = async (formData, subject) => {
 
     const response = await resend.emails.send({
       from: "onboarding@resend.dev", 
-      to: "info@assethaven-sec.com",
+      to: "maneyflorence@gmail.com",
       subject: subject,
       text: `
       📌 New Form Submission:
