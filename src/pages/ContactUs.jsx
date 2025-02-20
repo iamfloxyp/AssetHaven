@@ -219,6 +219,32 @@ const ContactUs = () => {
                   <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
+                  <label>Email</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                  <label>Recovery Type</label>
+                  <select name="recoveryType" value={formData.recoveryType} onChange={handleChange} required>
+                    <option value="">Select Recovery Type</option>
+                    {recoveryTypes.map((type, index) => (
+                      <option key={index} value={type}>{type}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Wallet Type</label>
+                  <select name="walletType" value={formData.walletType} onChange={handleChange} required>
+                    <option value="">Select Wallet Type</option>
+                    {walletTypes.map((wallet, index) => (
+                      <option key={index} value={wallet}>{wallet}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Wallet Value (USD)</label>
+                  <input type="number" name="walletValue" value={formData.walletValue} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
                   <label>Additional Message (Optional)</label>
                   <textarea name="message" value={formData.message} onChange={handleChange} rows="4" placeholder="Enter your message" required />
                 </div>
