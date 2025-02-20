@@ -3,7 +3,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (formData, subject) => {
   try {
-    console.log("📩 Email Data Being Sent:", formData); // Debugging
+    console.log("📩 Email Data Being Sent:", formData); 
 
     if (!formData || !formData.email) {
       console.error("❌ No valid email data provided.");

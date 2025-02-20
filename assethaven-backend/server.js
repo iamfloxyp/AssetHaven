@@ -75,7 +75,14 @@ app.post("/api/scam-tracing", async (req, res) => {
   try {
     const { firstName, lastName, country, phone, email, lostAmount, message } = req.body;
 
-    console.log("📩 Received Scam Tracing Data:", req.body);
+    console.log("📩 Scam Tracing Email Data:", {
+      firstName, lastName, email, phone, country, lostAmount, message
+    });
+
+    if (!email || !email.includes("@")) {
+      console.error("❌ Invalid email format detected:", email);
+      return res.status(400).json({ error: "Invalid email format" });
+    }
 
     const newScamReport = new ScamTracing({
       firstName,
@@ -90,25 +97,19 @@ app.post("/api/scam-tracing", async (req, res) => {
     await newScamReport.save();
     console.log("✅ Scam tracing report saved to MongoDB");
 
-    // ✅ Format email properly
-    const emailMessage = `
-      <h2>New Scam Tracing Submission</h2>
-      <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
-      <p><strong>Country:</strong> ${country}</p>
-      <p><strong>Estimated Loss (USD):</strong> ${lostAmount}</p>
-      <p><strong>Additional Info:</strong> ${message|| "No additional info provided"}</p>
-    `;
+    await sendEmail(
+      { firstName, lastName, email, phone, country, lostAmount, message },
+      "New Scam Tracing Submission"
+    );
 
-    await sendEmail(email, "New Scam Tracing Submission", emailMessage);
-    res.status(201).json({ message: "✅ Scam tracing form submitted successfully!" });
+    res.status(201).json({ message: "✅ Scam Tracing form submitted successfully!" });
 
   } catch (error) {
     console.error("❌ Error submitting scam tracing form:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
