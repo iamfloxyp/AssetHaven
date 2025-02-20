@@ -1,8 +1,7 @@
-require("dotenv").config()
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
 
 const Contact = require("./models/contact");
 const ScamTracing = require("./models/scamTracing");
@@ -12,30 +11,27 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-
+/**
+ * ✅ Contact Form Submission Route
+ */
 app.post("/api/contact", async (req, res) => {
   try {
     const { firstName, lastName, country, phone, email, recoveryType, walletType, message } = req.body;
 
-
-    console.log("Received Contact Form Data:", req.body);
-    console.log("email data sent", {
-      firstName, phone,email,message
-    })
+    console.log("📩 Received Contact Form Data:", req.body);
 
     if (!message || message.trim() === "") {
-      console.log(" message filed is empty or undefined")
+      console.log("❌ Message field is empty or undefined");
       return res.status(400).json({ error: "Message field cannot be empty" });
     }
-
 
     const newContact = new Contact({
       firstName,
@@ -49,23 +45,21 @@ app.post("/api/contact", async (req, res) => {
     });
 
     await newContact.save();
-    console.log(' saved to mongodb')
+    console.log("✅ Saved to MongoDB");
 
-    
+    // ✅ Format the email message properly
     const emailMessage = `
       <h2>New Contact Form Submission</h2>
       <p><strong>Name:</strong> ${firstName} ${lastName}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone}</p>
       <p><strong>Country:</strong> ${country}</p>
-      <p><strong>Recovery Type:</strong> ${recoveryType}</p>
-      <p><strong>Wallet Type:</strong> ${walletType}</p>
-      <p><strong>Message:</strong> ${message ? message :"No message provided"}</p>  <!-- ✅ Now message is guaranteed to be included -->
+      <p><strong>Recovery Type:</strong> ${recoveryType || "N/A"}</p>
+      <p><strong>Wallet Type:</strong> ${walletType || "N/A"}</p>
+      <p><strong>Message:</strong> ${message ? message.replace(/\n/g, "<br>") : "No message provided"}</p>
     `;
 
-    
     await sendEmail(email, "New Contact Form Submission", emailMessage);
-
     res.status(201).json({ message: "✅ Contact Form submitted successfully!" });
 
   } catch (error) {
@@ -74,15 +68,15 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
-
+/**
+ * ✅ Scam Tracing Form Submission Route
+ */
 app.post("/api/scam-tracing", async (req, res) => {
   try {
     const { firstName, lastName, country, phone, email, lostAmount, message } = req.body;
 
-    
-    console.log("Received Scam Tracing Data:", req.body);
+    console.log("📩 Received Scam Tracing Data:", req.body);
 
-    // ✅ Store in MongoDB
     const newScamReport = new ScamTracing({
       firstName,
       lastName,
@@ -94,8 +88,9 @@ app.post("/api/scam-tracing", async (req, res) => {
     });
 
     await newScamReport.save();
+    console.log("✅ Scam tracing report saved to MongoDB");
 
-    
+    // ✅ Format email properly
     const emailMessage = `
       <h2>New Scam Tracing Submission</h2>
       <p><strong>Name:</strong> ${firstName} ${lastName}</p>
@@ -106,9 +101,7 @@ app.post("/api/scam-tracing", async (req, res) => {
       <p><strong>Additional Info:</strong> ${additionalInfo || "No additional info provided"}</p>
     `;
 
-    
     await sendEmail(email, "New Scam Tracing Submission", emailMessage);
-
     res.status(201).json({ message: "✅ Scam tracing form submitted successfully!" });
 
   } catch (error) {
@@ -116,7 +109,6 @@ app.post("/api/scam-tracing", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));

@@ -1,13 +1,14 @@
-const{Resend} = require("resend")
+const { Resend } = require("resend");
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (formData, subject) => {
   try {
-    console.log("📩 Email Data Being Sent:", formData.message); g
+    console.log("📩 Email Data Being Sent:", formData.message);  
 
     const response = await resend.emails.send({
       from: "onboarding@resend.dev", 
-      to: "info@assethaven-sec.com", 
+      to: "info@assethaven-sec.com",
+      subject: subject,
       text: `
       📌 New Form Submission:
 
@@ -18,7 +19,7 @@ const sendEmail = async (formData, subject) => {
       Recovery Type: ${formData.recoveryType || "N/A"}
       Wallet Type: ${formData.walletType || "N/A"}
       Wallet Value: ${formData.walletValue || "N/A"}
-      Message: ${formData.message ? formData.message.replace(/\n/g, "br") : "No message provided"}  ✅✅✅
+      Message: ${formData.message ? formData.message.replace(/\n/g, "<br>") : "No message provided"}
       `,
     });
 

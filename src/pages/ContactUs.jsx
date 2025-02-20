@@ -69,22 +69,18 @@ const ContactUs = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData)=>({...prevData,
-      [name]:value,
-    }))
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
 
     if (name === "country") {
       const phoneCode = countryPhoneCodes[value] || "";
-      setFormData({
-        ...formData,
-        country: value,
+      setFormData((prevData) => ({
+        ...prevData,
         phone: phoneCode,
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+      }));
     }
   };
 
@@ -99,23 +95,25 @@ const ContactUs = () => {
     }
 
     try {
-      await axios.post("https://assethaven.onrender.com/api/contact", formData);
-      toast.success("✅ Form submitted successfully!", { autoClose: 30000 });
+      const response = await axios.post("https://assethaven.onrender.com/api/contact", formData);
+      
+      if (response.status === 201) {
+        toast.success("✅ Form submitted successfully!", { autoClose: 30000 });
+        setSubmittedEmails((prev) => new Set(prev).add(formData.email));
 
-      setSubmittedEmails((prev) => new Set(prev).add(formData.email));
-
-      setFormData({
-        firstName: "",
-        lastName: "",
-        country: "",
-        phone: "",
-        email: "",
-        recoveryType: "",
-        walletType: "",
-        walletValue: "",
-        message: "",
-      });
-
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          country: "",
+          phone: "",
+          email: "",
+          recoveryType: "",
+          walletType: "",
+          walletValue: "",
+          message: "",
+        });
+      }
     } catch (error) {
       console.error("❌ Error submitting form:", error);
       toast.error("❌ There was an error submitting the form. Please try again.", { autoClose: 30000 });
@@ -129,7 +127,6 @@ const ContactUs = () => {
       <Header />
       <ToastContainer />
 
-      {/* Contact Section */}
       <section className="contact-us">
         <section className="contact-hero">
           <div className="container">
@@ -138,11 +135,8 @@ const ContactUs = () => {
           </div>
         </section>
 
-        {/* Contact Wrapper */}
         <section className="contact-container">
           <div className="contact-wrapper">
-            
-            {/* Contact Information */}
             <div className="contact-info">
               <div className="info-box">
                 <FontAwesomeIcon icon={faLock} className="contact-icon" />
@@ -161,7 +155,6 @@ const ContactUs = () => {
               </div>
             </div>
 
-            {/* Contact Form */}
             <div className="contact-form-box">
               <h2>Submit Your Request</h2>
               <p>Fill in your details below, and our team will reach out to you shortly.</p>
@@ -175,7 +168,6 @@ const ContactUs = () => {
                   <label>Last Name</label>
                   <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
                 </div>
-
                 <div className="form-group">
                   <label>Country</label>
                   <select name="country" value={formData.country} onChange={handleChange} required>
@@ -185,27 +177,23 @@ const ContactUs = () => {
                     ))}
                   </select>
                 </div>
-
                 <div className="form-group">
                   <label>Phone Number</label>
                   <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
                 </div>
-
                 <div className="form-group">
                   <label>Email</label>
                   <input type="email" name="email" value={formData.email} onChange={handleChange} required />
                 </div>
-
                 <div className="form-group">
                   <label>Recovery Type</label>
                   <select name="recoveryType" value={formData.recoveryType} onChange={handleChange} required>
-                  <option value="">Select Recovery Type</option>
+                    <option value="">Select Recovery Type</option>
                     {recoveryTypes.map((type, index) => (
                       <option key={index} value={type}>{type}</option>
                     ))}
                   </select>
                 </div>
-
                 <div className="form-group">
                   <label>Wallet Type</label>
                   <select name="walletType" value={formData.walletType} onChange={handleChange} required>
@@ -215,15 +203,14 @@ const ContactUs = () => {
                     ))}
                   </select>
                 </div>
-
                 <div className="form-group">
                   <label>Wallet Value (USD)</label>
                   <input type="number" name="walletValue" value={formData.walletValue} onChange={handleChange} required />
                 </div>
-                <div className="scam-form-group">
-                <label>Additional Message (Optional)</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} rows="4" placeholder="Enter your message" required />
-              </div>
+                <div className="form-group">
+                  <label>Additional Message (Optional)</label>
+                  <textarea name="message" value={formData.message} onChange={handleChange} rows="4" placeholder="Enter your message" required />
+                </div>
 
                 <button type="submit" className="contact-submit-btn" disabled={loading}>
                   {loading ? "Submitting..." : "Send Message"}
@@ -241,4 +228,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
