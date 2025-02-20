@@ -98,7 +98,7 @@ app.post("/api/scam-tracing", async (req, res) => {
       <p><strong>Phone:</strong> ${phone}</p>
       <p><strong>Country:</strong> ${country}</p>
       <p><strong>Estimated Loss (USD):</strong> ${lostAmount}</p>
-      <p><strong>Additional Info:</strong> ${additionalInfo || "No additional info provided"}</p>
+      <p><strong>Additional Info:</strong> ${message|| "No additional info provided"}</p>
     `;
 
     await sendEmail(email, "New Scam Tracing Submission", emailMessage);
