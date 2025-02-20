@@ -25,7 +25,7 @@ const sendEmail = async (formData, subject) => {
 
     const response = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: "info@assethaven-sec.com",
+      to: "maneyflorence@gmail.com",
       subject: subject,
       html: emailBody, // ✅ Changed text to html to properly format the email
     });
