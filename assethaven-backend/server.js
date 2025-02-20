@@ -67,8 +67,8 @@ app.post("/api/contact", async (req, res) => {
     // ✅ Validate phone number length
     const expectedLength = countryPhoneLengths[country] || 10;
     if (phone.replace(/\D/g, "").length > expectedLength) {
-      console.error('❌ Phone number exceeds max length for ${country}');
-      return res.status(400).json({ error: 'Phone number exceeds max length for ${country}' });
+      console.error(`❌ Phone number exceeds max length for ${country}`);
+      return res.status(400).json({ error: `Phone number exceeds max length for ${country}` });
     }
 
     const newContact = new Contact({
@@ -126,8 +126,8 @@ app.post("/api/scam-tracing", async (req, res) => {
     // ✅ Validate phone number length
     const expectedLength = countryPhoneLengths[country] || 10;
     if (phone.replace(/\D/g, "").length > expectedLength) {
-      console.error('❌ Phone number exceeds max length for ${country}');
-      return res.status(400).json({ error: 'Phone number exceeds max length for ${country} '});
+      console.error(`❌ Phone number exceeds max length for ${country}`);
+      return res.status(400).json({ error: `Phone number exceeds max length for ${country}` });
     }
 
     const newScamReport = new ScamTracing({
@@ -168,4 +168,4 @@ app.post("/api/scam-tracing", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log('✅ Server running on port ${PORT}'));
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
