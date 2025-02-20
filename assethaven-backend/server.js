@@ -59,7 +59,7 @@ app.post("/api/contact", async (req, res) => {
       <p><strong>Message:</strong> ${message ? message.replace(/\n/g, "<br>") : "No message provided"}</p>
     `;
 
-    await sendEmail(email, "New Contact Form Submission", emailMessage);
+    await sendEmail(req.body, "New Contact Form Submission", emailMessage);
     res.status(201).json({ message: "✅ Contact Form submitted successfully!" });
 
   } catch (error) {

@@ -3,24 +3,31 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (formData, subject) => {
   try {
-    console.log("📩 Email Data Being Sent:", formData.message);  
+    console.log("📩 Email Data Being Sent:", formData); // Debugging
 
-    const response = await resend.emails.send({
-      from: "onboarding@resend.dev", 
-      to: "maneyflorence@gmail.com",
-      subject: subject,
-      text: `
+    if (!formData || !formData.email) {
+      console.error("❌ No valid email data provided.");
+      return;
+    }
+
+    const emailBody = `
       📌 New Form Submission:
-
-      Name: ${formData.firstName} ${formData.lastName}
-      Email: ${formData.email}
-      Phone: ${formData.phone}
-      Country: ${formData.country}
+      
+      Name: ${formData.firstName || "N/A"} ${formData.lastName || "N/A"}
+      Email: ${formData.email || "N/A"}
+      Phone: ${formData.phone || "N/A"}
+      Country: ${formData.country || "N/A"}
       Recovery Type: ${formData.recoveryType || "N/A"}
       Wallet Type: ${formData.walletType || "N/A"}
       Wallet Value: ${formData.walletValue || "N/A"}
       Message: ${formData.message ? formData.message.replace(/\n/g, "<br>") : "No message provided"}
-      `,
+    `;
+
+    const response = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: "info@assethaven-sec.com",
+      subject: subject,
+      html: emailBody, // ✅ Changed text to html to properly format the email
     });
 
     console.log("✅ Email sent successfully!", response);
