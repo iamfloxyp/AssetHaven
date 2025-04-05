@@ -3995,3 +3995,26 @@ textarea:focus {
     gap: 20px;
   }
 }
+
+/* Telgram chat styling */
+.telegram-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  transition: transform 0.3s ease;
+}
+
+.telegram-float:hover {
+  transform: scale(1.1);
+}
+
+.telegram-float img {
+  width: 50px;
+  height: 50px;
+  display: block;
+}
