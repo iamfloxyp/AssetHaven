@@ -45,28 +45,7 @@ const FAQ = ({ pageVariant }) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  // Add FAQ Schema for SEO
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.innerHTML = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      }))
-    });
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  
 
   return (
     <section className={`faq-section ${pageVariant === "resources" ? "faq-resources" : "faq-home"}`}>
